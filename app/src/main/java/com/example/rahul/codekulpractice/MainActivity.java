@@ -1,68 +1,66 @@
 package com.example.rahul.codekulpractice;
 
+
+import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String KEY_NAME = "Name";
+    private static final String KEY_PRICE = "Price";
+    private static final String KEY_CASHBACK = "Cashback";
+    private MyView product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.btnclicked).setOnClickListener(this::clicked);
 
-        findViewById(R.id.btnpressed).setOnClickListener(this::clicked);
+        findViewById(R.id.btnOkay).setOnClickListener(this::clicked);
+
 
     }
 
-
-    public void clicked(View view){
-
-        if(view.getId() == R.id.btnclicked){
-
-            settextinfo(""+converttodp(geteditvalue(),2));
-
-            Toast.makeText(this,"btn clicked",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            settextinfo(""+converttopx(geteditvalue(),3));
-            Toast.makeText(this,"btn pressed",Toast.LENGTH_SHORT).show();
-        }
+    private void clicked(View view) {
+        if(view.getId() == R.id.btnOkay)
+            product = getmeproduct();
+        ((TextView)findViewById(R.id.textInfo)).setText(product.getName());
 
     }
 
-    private int geteditvalue()
-    {
-//        EditText editText = (EditText)findViewById(R.id.editone);
-//        int val = Integer.parseInt(editText.getText().toString());
-//        return val;
-//
-        return Integer.parseInt(((EditText)findViewById(R.id.editone)).getText().toString());
+    private MyView getmeproduct(){
 
+        product = new MyView();
+        product.setName("Mobile");
+        product.setPrice(12000);
+        product.setCashback(1200);
+
+        return product;
     }
 
-    public void settextinfo(String info)
-    {
-//        TextView textView = (TextView)findViewById(R.id.textview);
-//        textView.setText(info);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        ((TextView) findViewById(R.id.textview)).setText(info);
-
+        outState.putString(KEY_NAME,product.getName());
+        outState.putFloat(KEY_PRICE,product.getPrice());
+        outState.putInt(KEY_CASHBACK,product.getCashback());
     }
 
-    public int converttopx(int x, int y){
-        return x=x+y;
-    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
 
-    public int converttodp(int a, int b){
-        return a*b;
+        if(savedInstanceState!=null)
+            ((TextView)findViewById(R.id.textInfo))
+                    .setText(savedInstanceState.getString(KEY_NAME)+"->"
+                    +savedInstanceState.getFloat(KEY_PRICE));
     }
-
 }

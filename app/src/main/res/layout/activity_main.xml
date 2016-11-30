@@ -11,29 +11,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.rahul.codekulpractice.MainActivity">
 
-    <EditText
-        android:id="@+id/editone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="edittext"/>
 
-    <Button
-        android:id="@+id/btnclicked"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="click here"/>
-
-    <Button
-        android:id="@+id/btnpressed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Press Here"/>
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/textInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Android Text"
-        android:textSize="20dp"/>
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/btnOkay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_below="@id/textInfo"
+        android:text="Okay"/>
+
 
 </LinearLayout>
